@@ -2,8 +2,8 @@
 	<header>
 	  <div class="header-content">
 		<div class="nav-left">
-		  <NuxtLink to="/" class="nav-button"><b>Главная</b></NuxtLink>
-		  <NuxtLink to="/applications" class="nav-button"><b>Заявки</b></NuxtLink>
+		  <NuxtLink to="/" class="nav-text"><b>Главная</b></NuxtLink>
+		  <NuxtLink to="/applications" class="nav-text"><b>Заявки</b></NuxtLink>
 		</div>
 		<div class="logo">
 		  <NuxtLink to="/">
@@ -25,37 +25,62 @@
   }
   </script>
   
-<style scoped>
-	header {
+  <style scoped>
+  header {
 	background-color: #9CCBB5;
 	color: white;
 	padding: 20px;
 	text-align: center;
-	}
-
-	.header-content {
+  }
+  
+  .header-content {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	max-width: 1200px;
 	margin: 0 auto;
-	}
-
-	.nav-left, .nav-right {
+  }
+  
+  .nav-left, .nav-right {
 	display: flex;
 	gap: 20px;
-	}
-
-	.logo img {
-	height: 70px; /* Уменьшена высота логотипа */
-	transition: transform 0.2s; /* Анимация при наведении */
-	}
-
-	.logo img:hover {
-	transform: scale(1.05); /* Увеличение логотипа при наведении */
-	}
-
-	.nav-button {
+	flex: 1;
+  }
+  
+  .nav-left {
+	justify-content: flex-start;
+  }
+  
+  .nav-right {
+	justify-content: flex-end;
+  }
+  
+  .logo {
+	flex: 0 0 auto; 
+  }
+  
+  .logo img {
+	height: 70px;
+	transition: transform 0.2s; 
+  }
+  
+  .logo img:hover {
+	transform: scale(1.05);
+  }
+  
+  .nav-text {
+	color: white;
+	text-decoration: none;
+	font-size: 16px;
+	font-weight: bold;
+	transition: color 0.3s;
+  }
+  
+  .nav-text:hover {
+	color: #f0f0f0;
+  }
+  
+  .nav-button {
 	background: #ffdfb1;
 	background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #a2dec2 100%), #ffdfb1;
 	color: white;
@@ -64,10 +89,11 @@
 	border: none;
 	border-radius: 20px;
 	transition: background-color 0.3s, color 0.3s;
-	}
-
-	.nav-button:hover {
+  }
+  
+  .nav-button:hover {
 	background-color: white;
 	color: #555555;
-	}
+  }
   </style>
+  

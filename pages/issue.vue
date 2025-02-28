@@ -2,6 +2,7 @@
 	<div class="issue">
 	  <img :src="image" alt="Заявка" class="issue-image" />
 	  <p class="category">Категория: {{ category }}</p>
+	  <p class="description">Описание: {{ description }}</p>
 	  <p :class="['status', statusClass]">Статус: {{ status }}</p>
 	</div>
   </template>
@@ -12,6 +13,7 @@
 	props: {
 	  image: String,
 	  category: String,
+	  description: String,
 	  status: String
 	},
 	computed: {
@@ -20,7 +22,7 @@
 		  'status-resolved': this.status === 'Решено',
 		  'status-pending': this.status === 'Не проверено',
 		  'status-rejected': this.status === 'Отклонено'
-		};
+		}
 	  }
 	}
   }
@@ -28,16 +30,16 @@
   
   <style scoped>
   .issue {
-	background-color: white;
-	border: 1px solid #e0e0e0; /* Легкая рамка */
-	border-radius: 8px; /* Скругленные углы */
+	border: 1px solid #ddd;
+	border-radius: 8px;
 	padding: 20px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Тень */
+	background-color: white;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	transition: transform 0.2s, box-shadow 0.2s;
   }
   
   .issue:hover {
-	transform: translateY(-5px); /* Эффект при наведении */
+	transform: translateY(-5px);
 	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   }
   
@@ -45,12 +47,12 @@
 	width: 100%;
 	max-width: 100%;
 	height: auto;
-	border-radius: 8px; /* Скругленные углы для изображения */
+	border-radius: 8px;
   }
   
-  .category {
+  .category, .description {
 	font-weight: bold;
-	color: #4CAF50; /* Зеленый цвет для категории */
+	color: #4CAF50;
 	margin: 10px 0 5px;
   }
   

@@ -1,43 +1,94 @@
 <template>
 	<div>
+	  <div class="banner">
+		<div class="banner-content">
+		  <h1>Сделаем наш город лучше!</h1>
+		  <p>Сломанные детские площадки?</p>
+		  <p>Старые здания?</p>
+		  <p>Испорченные дороги?</p>
+		  <NuxtLink to="/create-issue" class="banner-button">Оставить заявку</NuxtLink>
+		</div>
+	  </div>
 	  <div class="container">
 		<div class="issues">
 		  <h2>Заявки</h2>
-		  <p>Количество выполненных заявок: 999</p>
+		  <p>Количество выполненных заявок: {{ resolvedIssuesCount }}</p>
 		  <div class="issues-grid">
-			<Issue image="placeholder.jpg" category="Дороги" status="Решено" />
-			<Issue image="placeholder.jpg" category="Дороги" status="Решено" />
-			<Issue image="placeholder.jpg" category="Дороги" status="Не проверено" />
-			<Issue image="placeholder.jpg" category="Дороги" status="Отклонено" />
+			<Issue
+			  v-for="(issue, index) in issues"
+			  :key="index"
+			  :image="issue.image"
+			  :category="issue.category"
+			  :description="issue.description"
+			  :status="issue.status"
+			/>
 		  </div>
 		</div>
-		<a href="#" class="button">Оставить заявку</a>
 	  </div>
-	  <AppFooter />
 	</div>
   </template>
   
   <script>
-  import AppHeader from './default/header.vue'
-  import AppFooter from './default/footer.vue'
-  import Issue from './pages/issue.vue'
+  import Issue from '../pages/issue.vue'
   
   export default {
 	components: {
-	  AppHeader,
-	  AppFooter,
 	  Issue
+	},
+	computed: {
+	  issues() {
+		return JSON.parse(localStorage.getItem('issues')) || []
+	  },
+	  resolvedIssuesCount() {
+		return this.issues.filter(issue => issue.status === 'Решено').length
+	  }
 	}
   }
   </script>
   
-  <style>
-  body {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-	background-color: #f4f4f4;
-	color: #333;
+  <style scoped>
+  .banner {
+	background: url("../assets/banner.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: white;
+	padding: 60px 20px;
+	text-align: center;
+	margin-bottom: 40px;
+  }
+  
+  .banner-content {
+	max-width: 800px;
+	margin: 0 auto;
+  }
+  
+  .banner h1 {
+	font-size: 36px;
+	margin-bottom: 20px;
+  }
+  
+  .banner p {
+	font-size: 20px;
+	margin: 10px 0;
+  }
+  
+  .banner-button {
+	display: inline-block;
+	margin-top: 20px;
+	padding: 12px 30px;
+	background-color: #ffdfb1;
+	background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #a2dec2 100%), #ffdfb1;
+	color: white;
+	text-decoration: none;
+	border-radius: 20px;
+	font-size: 18px;
+	font-weight: bold;
+	transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .banner-button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
   
   .container {
@@ -54,20 +105,7 @@
   
   .issues-grid {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr); /* Три колонки */
-	gap: 20px; /* Расстояние между блоками */
-  }
-  
-  .button {
-	background-color: #4CAF50;
-	color: white;
-	padding: 10px 20px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 10px 0;
-	cursor: pointer;
-	border-radius: 5px;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 20px;
   }
   </style>

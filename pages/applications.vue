@@ -1,14 +1,14 @@
 <template>
 	<div class="applications-page">
 	  <h2>Заявки</h2>
-	  <p>Количество выполненных заявок: {{ issues.length }}</p>
-  
+	  <p>Количество выполненных заявок: {{ resolvedIssuesCount }}</p>
 	  <div class="issues-grid">
 		<Issue
 		  v-for="(issue, index) in issues"
 		  :key="index"
 		  :image="issue.image"
 		  :category="issue.category"
+		  :description="issue.description"
 		  :status="issue.status"
 		/>
 	  </div>
@@ -16,21 +16,18 @@
   </template>
   
   <script>
-  import Issue from './pages/issue.vue'
+  import Issue from '../pages/issue.vue'
   
   export default {
-	name: 'ApplicationsPage',
 	components: {
 	  Issue
 	},
-	data() {
-	  return {
-		issues: [
-		  { image: 'placeholder.jpg', category: 'Дороги', status: 'Решено' },
-		  { image: 'placeholder.jpg', category: 'Дороги', status: 'Решено' },
-		  { image: 'placeholder.jpg', category: 'Дороги', status: 'Не проверено' },
-		  { image: 'placeholder.jpg', category: 'Дороги', status: 'Отклонено' }
-		]
+	computed: {
+	  issues() {
+		return JSON.parse(localStorage.getItem('issues')) || []
+	  },
+	  resolvedIssuesCount() {
+		return this.issues.filter(issue => issue.status === 'Решено').length
 	  }
 	}
   }

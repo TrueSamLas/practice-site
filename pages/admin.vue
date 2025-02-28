@@ -25,7 +25,7 @@
   export default {
 	data() {
 	  return {
-		issues: [
+		issues: JSON.parse(localStorage.getItem('issues')) || [
 		  { category: 'Дороги', status: 'Решено' },
 		  { category: 'Дороги', status: 'Не проверено' },
 		  { category: 'Дороги', status: 'Отклонено' }
@@ -34,26 +34,23 @@
 	},
 	methods: {
 	  updateStatus(index) {
-		// Обновляем статус заявки
-		const updatedIssue = this.issues[index]
-		alert(`Статус заявки изменен на: ${updatedIssue.status}`)
-		// Здесь можно добавить запрос к API для сохранения изменений
+		// Сохраняем изменения в localStorage
+		localStorage.setItem('issues', JSON.stringify(this.issues))
+		alert(`Статус заявки изменен на: ${this.issues[index].status}`)
 	  },
 	  editIssue(index) {
-		// Редактирование заявки
 		const updatedCategory = prompt('Введите новую категорию:', this.issues[index].category)
 		if (updatedCategory) {
 		  this.issues[index].category = updatedCategory
+		  localStorage.setItem('issues', JSON.stringify(this.issues))
 		  alert('Категория заявки обновлена')
-		  // Здесь можно добавить запрос к API для сохранения изменений
 		}
 	  },
 	  deleteIssue(index) {
-		// Удаление заявки
 		if (confirm('Вы уверены, что хотите удалить эту заявку?')) {
 		  this.issues.splice(index, 1)
+		  localStorage.setItem('issues', JSON.stringify(this.issues))
 		  alert('Заявка удалена')
-		  // Здесь можно добавить запрос к API для удаления заявки
 		}
 	  }
 	}
